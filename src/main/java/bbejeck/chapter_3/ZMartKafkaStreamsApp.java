@@ -44,7 +44,7 @@ public class ZMartKafkaStreamsApp {
 
     public static void main(String[] args) throws Exception {
 
-
+        //use properties
         StreamsConfig streamsConfig = new StreamsConfig(getProperties());
 
         Serde<Purchase> purchaseSerde = StreamsSerdes.PurchaseSerde();
@@ -78,8 +78,10 @@ public class ZMartKafkaStreamsApp {
         purchaseKStream.print(Printed.<String, Purchase>toSysOut().withLabel("purchases"));
         purchaseKStream.to("purchases", Produced.with(stringSerde,purchaseSerde));
 
+
         // TODO: used only to produce data for this application, not typical usage
         MockDataProducer.producePurchaseData();
+
 
         KafkaStreams kafkaStreams = new KafkaStreams(streamsBuilder.build(),streamsConfig);
         LOG.info("ZMart First Kafka Streams Application Started");

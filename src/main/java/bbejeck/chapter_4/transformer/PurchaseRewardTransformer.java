@@ -30,8 +30,9 @@ public class PurchaseRewardTransformer implements ValueTransformer<Purchase, Rew
     @Override
     public RewardAccumulator transform(Purchase value) {
         RewardAccumulator rewardAccumulator = RewardAccumulator.builder(value).build();
-        Integer accumulatedSoFar = stateStore.get(rewardAccumulator.getCustomerId());
 
+        //top-up accumulator
+        Integer accumulatedSoFar = stateStore.get(rewardAccumulator.getCustomerId());
         if (accumulatedSoFar != null) {
              rewardAccumulator.addRewardPoints(accumulatedSoFar);
         }
